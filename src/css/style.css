@@ -55,6 +55,7 @@
     left: 0;
     right: 0;
     z-index: 1000;
+    gap:20px;
 }
 
         /* Logo styles */
@@ -64,7 +65,7 @@
             gap: 12px;
             cursor: pointer;
             transition: all 0.4s ease;
-            padding-left: 100px;
+            padding-left: 20px;
         }
 
         .logo:hover {
@@ -110,11 +111,18 @@
             align-items: center;
             gap: 20px;
             flex: 1;
-            max-width: 500px;
+            width:100%;
+            max-width: none;
             margin: 0 30px;
         }
 
         /* Dropdown styles */
+        
+        .middle-section .dropdown {
+            white-space: nowrap; /* avoid dropdown button expanding width */
+            margin-left: 100px;
+        }
+
         .dropdown {
             position: relative;
         }
@@ -220,59 +228,58 @@
             padding-left: 24px;
         }
 
-        /* Search box */
-        .search-box {
-            position: relative;
-            flex: 1;
-        }
+        /* Search box wrapper */
+.search-box {
+    position: relative;
+    flex:1;
+    max-width: 550px;  /* increase width here */
+    margin-left: 100px; /* optional: move right side */
+}
 
-        .search-input {
-            width: 100%;
-            height: 42px;
-            padding: 0 18px 0 45px;
-            border: 1px solid rgba(234, 81, 166, 0.2);
-            border-radius: 15px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            font-size: 14px;
-            font-weight: 500;
-            outline: none;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(234, 81, 166, 0.1);
-        }
+/* Search input field */
+.search-input {
+    width: 100% !important;
+    height: 48px !important;
+    padding: 0 18px 0 50px !important;
+    border: 1px solid rgba(234, 81, 166, 0.2) !important;
+    border-radius: 15px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 4px 15px rgba(234, 81, 166, 0.1) !important;
+}
 
-        .search-input:focus {
-            border-color: #ea51a6;
-            background: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 0 0 4px rgba(234, 81, 166, 0.1), 0 8px 30px rgba(234, 81, 166, 0.2);
-            transform: translateY(-2px);
-        }
 
-        .search-input::placeholder {
-            color: #94a3b8;
-            transition: all 0.3s ease;
-        }
+/* Input focus animation */
+.search-input:focus {
+    border-color: #ea51a6;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 0 4px rgba(234, 81, 166, 0.1), 
+                0 8px 30px rgba(234, 81, 166, 0.2);
+    transform: translateY(-2px);
+}
 
-        .search-input:focus::placeholder {
-            color: #cbd5e1;
-            transform: translateX(5px);
-        }
+/* Placeholder */
+.search-input::placeholder {
+    color: #94a3b8;
+}
 
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 16px;
-            color: #94a3b8;
-            transition: all 0.4s ease;
-            pointer-events: none;
-        }
+/* Icon inside search box */
+.search-icon {
+    position: absolute;
+    left: 18px;  /* Position icon properly */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #94a3b8;
+    pointer-events: none;
+    transition: 0.3s ease;
+}
 
-        .search-input:focus + .search-icon {
-            color: #ea51a6;
-            transform: translateY(-50%) scale(1) rotate(0deg);
-        }
+.search-input:focus ~ .search-icon {
+    color: #ea51a6;
+    transform: translateY(-50%) scale(1.1);
+}
+
+
 
         /* Right section */
         .right-section {
@@ -662,30 +669,42 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-weight: 700;
 }
 
 .heading-arrows {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .heading-arrows button {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   border: none;
-  background: rgba(255,255,255,0.9);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-  transition: transform 0.2s ease, background-color 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  font-size: 1.4rem;
+  color: #000;
+  font-weight: 700;
+  font-family: Arial, sans-serif;
 }
 
 .heading-arrows button:hover {
   background: #ffeaf5;
-  transform: scale(1.1);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(236, 70, 153, 0.3);
+  color: #ec4699;
+}
+
+.heading-arrows button:active {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(236, 70, 153, 0.25);
 }
 
 /* ---------------- Scrollable Wrappers ---------------- */
@@ -902,301 +921,7 @@
   .recommendations, .all-books, .categories, .welcome-section { margin-left: 20px; max-width: calc(100% - 40px); }
 }
 
-/* ---------------- Modal Overlay ---------------- */
-.modal {
-  display: none; /* hidden by default */
-  position: fixed;
-  top:0;
-  left:0;
-  width: 100%; 
-  height: 100%;
-  background: rgba(0,0,0,0.6);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-}
-.modal.show{
-  display: flex !important;
-}
-/* ---------------- Modal Content ---------------- */
-.modal-content {
-  background: #f9e6ef;
-  width: 85%;
-  max-width: 1100px;
-  max-height:90vh;
-  border-radius: 18px;
-  overflow-y: auto;
-  padding: 28px;
-  position: relative;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-  animation: fadeIn 0.3s ease;
-}
 
-
-.modal-image{
-  flex: 0 0 40%;
-  max-width: 400px;
-  height:500px;
-}
-
-/* Bigger book image */
-.modal-image img {
-  width: 100%;
-  height: 100%;
-  border-radius: 14px;
-  object-fit: cover;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.18);
-}
-
-
-/* Animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* ---------------- Close Button ---------------- */
-.close-btn {
-  position: absolute;
-  top: 18px;
-  right: 22px;
-  font-size: 26px;
-  cursor: pointer;
-  color: #444;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-.close-btn:hover {
-  transform: scale(1.2);
-  color: #f04e98;
-}
-
-/* ---------------- Modal Header ---------------- */
-.modal-header {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 28px;
-  flex-wrap: wrap;
-  align-items:flex-start;
-}
-
-.modal-info {
-  flex: 1;
-  display:flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.modal-info h2 {
-  margin-bottom: 8px;
-  font-size: 28px;
-  color: #222;
-}
-.modal-info p {
-  margin: 8px 0;
-  color: #555;
-  font-size: 16px;
-}
-.category-tag {
-  display: inline-block;
-  background: #f8c9dd;
-  color: #c2185b;
-  padding: 4px 8px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  margin: 8px 0 12px;
-}
-
-#modal-category,
-.modal-tags span {
-  display: inline-block;
-  background: #f8c9dd;
-  color: #c2185b;
-  padding: 3px 7px;
-  border-radius: 14px;
-  font-size: 0.8rem;
-  margin: 4px 6px 8px 0;
-  width: fit-content;
-}
-
-
-
-/* ---------------- Actions ---------------- */
-.modal-actions {
-  margin-top: 10px;
-  display: flex;
-  gap: 14px;
-  align-items: center;
-}
-.start-btn {
-  background: #f04e98;
-  color: white;
-  border: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  transition: background-color 0.2s ease;
-}
-.start-btn:hover { background: #d83d83; }
-.modal-actions .fav-btn,
-.modal-actions .download-btn {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 8px 12px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 18px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  transition: background-color 0.2s, transform 0.2s;
-}
-
-.modal-actions .fav-btn {
-  position: static; /* override absolute */
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15); /* match modal buttons */
-}
-
-.modal-actions .download-btn i { color: #444; }
-.modal-actions button:hover { transform: scale(1.05); }
-
-/* ---------------- Reviews Section ---------------- */
-/* Ratings summary (two-column layout + glow) */
-.ratings-summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(236, 70, 153, 0.15);
-  margin-bottom: 20px;
-  transition: all 0.3s ease;
-}
-.ratings-summary:hover {
-  box-shadow: 0 0 20px rgba(236, 70, 153, 0.35);
-}
-
-/* Left side: average rating */
-.summary-left {
-  flex: 1;
-  text-align: center;
-}
-.summary-left span {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #333;
-  display: block;
-}
-.summary-left .stars {
-  font-size: 1.2rem;
-  color: gold;
-  margin: 4px 0;
-}
-.summary-left p {
-  font-size: 0.9rem;
-  color: #555;
-}
-
-/* Right side: rating bars */
-.rating-bars {
-  flex: 2;
-}
-.rating-bar {
-  display: flex;
-  align-items: center;
-  color: #555;
-  margin: 6px 0;
-  font-size: 0.9rem;
-  gap: 8px;
-}
-.rating-bar span:first-child {
-  width: 30px;
-  text-align: right;
-}
-.rating-bar .bar {
-  flex: 1;
-  height: 8px;
-  background: #f1dce5;
-  border-radius: 10px;
-  overflow: hidden;
-}
-.rating-bar .bar div {
-  background: #fbbf24;
-  height: 100%;
-}
-.rating-bar span:last-child {
-  width: 20px;
-  text-align: left;
-}
-
-/* Review filters */
-.review-filters {
-  margin: 15px 0;
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.review-filters span {
-  font-weight: 500;
-  color: #444;
-}
-.filter-btn {
-  background: #f2f2f2;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.filter-btn:hover {
-  background: #e1e1e1;
-}
-.filter-btn.active {
-  background: #e91e63; /* pink theme */
-  color: #fff;
-}
-
-/* Individual reviews */
-.reviews-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-.review {
-  background: #fff;
-  padding: 14px 18px;
-  border-radius: 14px;
-  box-shadow: 0 2px 6px rgba(236, 70, 153, 0.1);
-  transition: all 0.3s ease;
-}
-.review:hover {
-  box-shadow: 0 0 15px rgba(236, 70, 153, 0.3);
-}
-.review-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
-.review-header strong {
-  font-size: 1rem;
-  color: #333;
-}
-.review-header .stars {
-  font-size: 1rem;
-  color: gold;
-}
-.review p {
-  font-size: 0.95rem;
-  color: #555;
-  line-height: 1.4;
-}
 
 
 /*///////////////////DOWNLOADS///////////////*/
@@ -1694,4 +1419,505 @@ input:hover, textarea:hover {
 .help-support-btn:hover {
     transform: translateY(-5px);
     box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+  position: fixed !important;
+  width: 100% !important;
+}
+
+/* Modal Overlay */
+.modal {
+  display: none !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  z-index: 2000 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 20px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+.modal.show {
+  display: flex !important;
+}
+
+/* Modal Content Container - EXACT SIZE */
+.modal-content {
+  background: #ffeef8 !important;
+  width: 1120px !important;
+  max-width: 95vw !important;
+  max-height: 90vh !important;
+  border-radius: 20px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 30px !important;
+  position: relative !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3) !important;
+  animation: slideUp 0.3s ease !important;
+  margin: auto !important;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Close Button */
+.modal .close-btn {
+  position: absolute !important;
+  top: 15px !important;
+  right: 20px !important;
+  font-size: 32px !important;
+  cursor: pointer !important;
+  color: #999 !important;
+  background: none !important;
+  border: none !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  width: 35px !important;
+  height: 35px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 10 !important;
+  line-height: 1 !important;
+}
+
+.modal .close-btn:hover {
+  transform: scale(1.2) !important;
+  color: #f04e98 !important;
+}
+
+/* ========== SIDE-BY-SIDE LAYOUT - EXACT MATCH ========== */
+.modal .modal-header {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 30px !important;
+  margin-bottom: 0 !important;
+  align-items: flex-start !important;
+  flex-wrap: nowrap !important;
+  padding: 20px !important;
+  background: white !important;
+  border-radius: 15px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Book Image - Left Side */
+.modal .modal-image {
+  width: 280px !important;
+  min-width: 280px !important;
+  max-width: 280px !important;
+  height: 400px !important;
+  min-height: 400px !important;
+  flex-shrink: 0 !important;
+  flex-grow: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+}
+
+.modal .modal-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+
+/* Book Info - Right Side */
+.modal .modal-info {
+  flex: 1 !important;
+  min-width: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  padding: 10px 0 !important;
+}
+
+.modal .modal-info h2 {
+  font-size: 32px !important;
+  color: #222 !important;
+  margin: 0 0 5px 0 !important;
+  line-height: 1.2 !important;
+  font-weight: 700 !important;
+}
+
+.modal .modal-info > p:first-of-type {
+  margin: 0 0 8px 0 !important;
+  color: #666 !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+}
+
+.modal .modal-info > div:first-of-type {
+  margin-bottom: 8px !important;
+}
+
+.modal .modal-info > p:nth-of-type(2) {
+  margin: 8px 0 !important;
+  color: #555 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+/* Category Tags */
+.modal .category-tag {
+  display: inline-block !important;
+  background: #ffc9e5 !important;
+  color: #c2185b !important;
+  padding: 6px 14px !important;
+  border-radius: 18px !important;
+  font-size: 0.75rem !important;
+  margin-right: 8px !important;
+  margin-bottom: 8px !important;
+  font-weight: 600 !important;
+}
+
+/* Modal Actions */
+.modal .modal-actions {
+  display: flex !important;
+  gap: 10px !important;
+  align-items: center !important;
+  margin-top: 12px !important;
+}
+
+.modal .start-btn {
+  background: linear-gradient(135deg, #f04e98 0%, #ec4699 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 12px 26px !important;
+  border-radius: 25px !important;
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 15px rgba(240, 78, 152, 0.3) !important;
+}
+
+.modal .start-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(240, 78, 152, 0.4) !important;
+}
+
+/* Icon Buttons in Modal Actions */
+.modal .modal-actions .fav-btn,
+.modal .modal-actions .download-btn {
+  background: white !important;
+  border: 2px solid #e5e5e5 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 16px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  position: static !important;
+  width: 42px !important;
+  height: 42px !important;
+  flex-shrink: 0 !important;
+}
+
+.modal .modal-actions .fav-btn:hover,
+.modal .modal-actions .download-btn:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 4px 12px rgba(240, 78, 152, 0.2) !important;
+  border-color: #ffc9e5 !important;
+}
+
+.modal .modal-actions .fav-btn.active {
+  background: #fff5f9 !important;
+  border-color: #f04e98 !important;
+}
+
+.modal .modal-actions .fav-btn i,
+.modal .modal-actions .download-btn i {
+  color: #888 !important;
+}
+
+.modal .modal-actions .fav-btn.active i {
+  color: #f04e98 !important;
+}
+
+/* Reviews Section */
+.modal .modal-reviews {
+  margin-top: 25px !important;
+  padding-top: 0 !important;
+  border-top: none !important;
+}
+
+.modal .modal-reviews h3 {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin: 0 0 18px 0 !important;
+  color: #222 !important;
+}
+
+/* Ratings Summary */
+.modal .ratings-summary {
+  display: flex !important;
+  gap: 35px !important;
+  background: white !important;
+  padding: 30px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.06) !important;
+  margin-bottom: 20px !important;
+  border: 1px solid #f0f0f0 !important;
+}
+
+.modal .summary-left {
+  text-align: center !important;
+  flex-shrink: 0 !important;
+  min-width: 140px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.modal .summary-left span {
+  font-size: 4rem !important;
+  font-weight: 800 !important;
+  color: #222 !important;
+  display: block !important;
+  line-height: 1 !important;
+  margin-bottom: 8px !important;
+}
+
+.modal .summary-left .stars {
+  font-size: 1.3rem !important;
+  color: #ffc107 !important;
+  margin: 8px 0 !important;
+  letter-spacing: 3px !important;
+}
+
+.modal .summary-left p {
+  font-size: 0.95rem !important;
+  color: #888 !important;
+  margin: 8px 0 0 0 !important;
+}
+
+/* Rating Bars */
+.modal .rating-bars {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  justify-content: center !important;
+}
+
+.modal .rating-bar {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-size: 0.9rem !important;
+}
+
+.modal .rating-bar span:first-child {
+  width: 35px !important;
+  font-weight: 600 !important;
+  color: #555 !important;
+  text-align: right !important;
+  font-size: 0.85rem !important;
+}
+
+.modal .rating-bar .bar {
+  flex: 1 !important;
+  height: 10px !important;
+  background: #f0f0f0 !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
+.modal .rating-bar .bar div {
+  background: linear-gradient(90deg, #ffc107, #ffb300) !important;
+  height: 100% !important;
+  border-radius: 10px !important;
+  transition: width 0.3s ease !important;
+}
+
+.modal .rating-bar span:last-child {
+  width: 35px !important;
+  text-align: left !important;
+  color: #888 !important;
+  font-size: 0.85rem !important;
+}
+
+/* Review Filters */
+.modal .review-filters {
+  display: flex !important;
+  gap: 10px !important;
+  align-items: center !important;
+  margin-bottom: 20px !important;
+  flex-wrap: wrap !important;
+}
+
+.modal .review-filters span {
+  font-weight: 700 !important;
+  color: #333 !important;
+  font-size: 0.95rem !important;
+}
+
+.modal .filter-btn {
+  background: white !important;
+  border: 2px solid #e5e5e5 !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  cursor: pointer !important;
+  font-size: 0.85rem !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.modal .filter-btn:hover {
+  background: #f9f9f9 !important;
+  border-color: #ddd !important;
+}
+
+.modal .filter-btn.active {
+  background: #ec4699 !important;
+  color: white !important;
+  border-color: #ec4699 !important;
+}
+
+/* Reviews List */
+.modal .reviews-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.modal .review {
+  background: white !important;
+  padding: 18px 22px !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid #f5f5f5 !important;
+  transition: all 0.3s ease !important;
+}
+
+.modal .review:hover {
+  box-shadow: 0 4px 12px rgba(240, 78, 152, 0.12) !important;
+  border-color: #ffc9e5 !important;
+}
+
+.modal .review-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 10px !important;
+}
+
+.modal .review-header strong {
+  color: #222 !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+}
+
+.modal .review-header .stars {
+  font-size: 0.95rem !important;
+  color: #ffc107 !important;
+  letter-spacing: 2px !important;
+}
+
+.modal .review p {
+  margin: 0 !important;
+  color: #666 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
+}
+
+/* Scrollbar Styling */
+.modal-content::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #f5f5f5 !important;
+  border-radius: 10px !important;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #ddd !important;
+  border-radius: 10px !important;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: #ccc !important;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .modal-content {
+    width: 1120px !important;
+  }
+}
+
+/* Tablets */
+@media (max-width: 1199px) and (min-width: 768px) {
+  .modal-content {
+    width: 95% !important;
+    padding: 25px !important;
+  }
+  
+  .modal .modal-image {
+    width: 240px !important;
+    min-width: 240px !important;
+    height: 360px !important;
+  }
+}
+
+/* Small tablets and mobile - stack vertically */
+@media (max-width: 767px) {
+  .modal-content {
+    width: 95% !important;
+    padding: 20px !important;
+  }
+  
+  .modal .modal-header {
+    flex-direction: column !important;
+    gap: 20px !important;
+    padding: 15px !important;
+  }
+  
+  .modal .modal-image {
+    width: 100% !important;
+    max-width: 320px !important;
+    height: 400px !important;
+    margin: 0 auto !important;
+  }
+  
+  .modal .modal-info {
+    min-width: auto !important;
+  }
+  
+  .modal .modal-info h2 {
+    font-size: 24px !important;
+  }
+  
+  .modal .ratings-summary {
+    flex-direction: column !important;
+    gap: 20px !important;
+    padding: 20px !important;
+  }
 }

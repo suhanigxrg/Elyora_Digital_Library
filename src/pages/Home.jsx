@@ -1,65 +1,48 @@
-// src/pages/Home.jsx
-import React, { useEffect, useRef, useState } from "react";
-import BookCard from "../components/BookCard";
-import books from "../data/books";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import Modal from '../components/Modal';
+// Import your book data
+import books from '../data/books';
 
-/**
- * Home page - renders welcome, recommendations, categories, all books.
- * Provides modal for book details (populated from books data).
- */
-export default function Home() {
-  const [modalBook, setModalBook] = useState(null);
-  const navigate = useNavigate();
-  const recRef = useRef(null);
-  const allRef = useRef(null);
-  const [query, setQuery] = useState("");
+const Home = () => {
+  const [selectedBook, setSelectedBook] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    // optional: restore any UI state
-  }, []);
+  // Convert books object to array for easier mapping
+  const booksArray = Object.values(books);
 
-  // Open modal (called from BookCard)
-  function openModal(book) {
-    setModalBook(book);
-    document.body.style.overflow = "hidden";
-  }
-  function closeModal() {
-    setModalBook(null);
-    document.body.style.overflow = "auto";
-  }
+  // Get only first 3 books for recommendations
+  const recommendedBooks = booksArray.slice(0, 3);
 
-  function startReading(book) {
-    closeModal();
-    navigate(`/reader/${book.id}`);
-  }
+  // Categories data
+  const categories = [
+    'Fiction',
+    'Non-Fiction',
+    'Self-Help',
+    'Business',
+    'Fantasy',
+    'Mystery',
+    'Romance',
+    'Sci-Fi'
+  ];
 
-  function searchBooks(q) {
-    setQuery(q);
-  }
+  // Function to open modal
+  const openBookModal = (book) => {
+    setSelectedBook(book);
+    setIsModalOpen(true);
+  };
 
-  const filteredBooks = Object.values(books).filter((b) =>
-    b.title.toLowerCase().includes(query.toLowerCase()) ||
-    (b.author && b.author.toLowerCase().includes(query.toLowerCase()))
-  );
-
-  // helpers for carousel arrows
-  function scrollLeft(ref) {
-    if (!ref?.current) return;
-    ref.current.scrollBy({ left: -300, behavior: "smooth" });
-  }
-  function scrollRight(ref) {
-    if (!ref?.current) return;
-    ref.current.scrollBy({ left: 300, behavior: "smooth" });
-  }
+  // Function to close modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // Optional: Clear selected book after animation
+    setTimeout(() => setSelectedBook(null), 300);
+  };
 
   return (
-    <div className="page home-page">
-      {/* Welcome */}
+    <div className="home-page">
+      {/* Welcome Section */}
       <section className="welcome-section">
-        <h1>
-          Welcome to <span className="brand">ELYORA</span>
-        </h1>
+        <h1>Welcome to <span className="brand">ELYORA</span></h1>
         <p>Your gateway to infinite stories</p>
         <div className="content-buttons">
           <button>E-Books</button>
@@ -68,156 +51,114 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Search bar (local) */}
-      <div style={{ padding: "12px 24px" }}>
-        <input
-          placeholder="Search books..."
-          value={query}
-          onChange={(e) => searchBooks(e.target.value)}
-          className="search-input"
-          style={{ width: "100%", maxWidth: 480 }}
-        />
-      </div>
-
-      {/* Recommendations */}
+      {/* Recommendations Section - ONLY 3 BOOKS */}
       <section className="recommendations">
         <h2>
           Book Recommendations
           <div className="heading-arrows">
-            <button className="scroll-left" onClick={() => scrollLeft(recRef)}>
-              <i className="fa-solid fa-chevron-left" />
-            </button>
-            <button className="scroll-right" onClick={() => scrollRight(recRef)}>
-              <i className="fa-solid fa-chevron-right" />
-            </button>
+            <button><i className="fas fa-chevron-left"></i></button>
+            <button><i className="fas fa-chevron-right"></i></button>
           </div>
         </h2>
-
         <div className="scroll-wrapper">
-          <div className="book-card-container" ref={recRef}>
-            {filteredBooks.slice(0, 3).map((b) => (
-              <BookCard key={b.id} book={b} onOpenModal={openModal} />
+          <div className="book-card-container">
+            {recommendedBooks.map((book) => (
+              <div key={book.id} className="book-card">
+                <div className="book-visual">
+                  <img src={book.cover} alt={book.title} />
+                  
+                  {/* Hover UI */}
+                  <div className="hover-ui">
+                    <button 
+                      className="view-btn"
+                      onClick={() => openBookModal(book)}
+                    >
+                      <i className="fas fa-book-open"></i> View Book
+                    </button>
+                    <button className="icon-btn">
+                      <i className="fas fa-download"></i>
+                    </button>
+                  </div>
+
+                  {/* Favorite Button */}
+                  <button className="fav-btn">
+                    <i className="far fa-heart"></i>
+                  </button>
+                </div>
+
+                <h3>{book.title}</h3>
+                <p>{book.author}</p>
+                <span className="tag">{book.totalChapters} Chapters</span>
+                <span className="rating">★ {book.rating}</span>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Categories Section */}
       <section className="categories">
-        <h2>Books by Category</h2>
+        <h2>Browse by Category</h2>
         <div className="category-card-container">
-          <div className="category-card" onClick={() => alert("Comics")}>
-            Comics
-          </div>
-          <div className="category-card" onClick={() => alert("Novels")}>
-            Novels
-          </div>
-          <div className="category-card" onClick={() => alert("Study Material")}>
-            Study Material
-          </div>
-          <div className="category-card" onClick={() => alert("Inspiration")}>
-            Inspiration
-          </div>
-          <div className="category-card" onClick={() => alert("Business")}>
-            Business
-          </div>
-          <div className="category-card" onClick={() => alert("Self Improvement")}>
-            Self Improvement
-          </div>
+          {categories.map((category, index) => (
+            <div key={index} className="category-card">
+              {category}
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* All Books */}
+      {/* All Books Section */}
       <section className="all-books">
         <h2>
           All Books
           <div className="heading-arrows">
-            <button className="scroll-left" onClick={() => scrollLeft(allRef)}>
-              <i className="fa-solid fa-chevron-left" />
-            </button>
-            <button className="scroll-right" onClick={() => scrollRight(allRef)}>
-              <i className="fa-solid fa-chevron-right" />
-            </button>
+            <button><i className="fas fa-chevron-left"></i></button>
+            <button><i className="fas fa-chevron-right"></i></button>
           </div>
         </h2>
-
         <div className="scroll-wrapper">
-          <div className="all-books-container" ref={allRef}>
-            {filteredBooks.map((b) => (
-              <BookCard key={b.id} book={b} onOpenModal={openModal} />
+          <div className="all-books-container">
+            {booksArray.map((book) => (
+              <div key={book.id} className="book-card">
+                <div className="book-visual">
+                  <img src={book.cover} alt={book.title} />
+                  
+                  <div className="hover-ui">
+                    <button 
+                      className="view-btn"
+                      onClick={() => openBookModal(book)}
+                    >
+                      <i className="fas fa-book-open"></i> View Book
+                    </button>
+                    <button className="icon-btn">
+                      <i className="fas fa-download"></i>
+                    </button>
+                  </div>
+
+                  <button className="fav-btn">
+                    <i className="far fa-heart"></i>
+                  </button>
+                </div>
+
+                <h3>{book.title}</h3>
+                <p>{book.author}</p>
+                <span className="tag">{book.totalChapters} Chapters</span>
+                <span className="rating">★ {book.rating}</span>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Modal */}
-      {modalBook && (
-        <div id="bookModal" className="modal show" onClick={closeModal}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <span className="close-btn" onClick={closeModal}>
-              <i className="fa-solid fa-xmark" />
-            </span>
-
-            <div className="modal-header">
-              <div className="modal-image">
-                <img id="modal-book-img" src={modalBook.cover} alt={modalBook.title} />
-              </div>
-
-              <div className="modal-info">
-                <h2 id="modal-title">{modalBook.title}</h2>
-                <p id="modal-author">{modalBook.author}</p>
-                <span id="modal-category" className="category-tag">
-                  {modalBook.category || modalBook.genre}
-                </span>
-
-                <p id="modal-description">{modalBook.description}</p>
-
-                <div className="modal-actions">
-                  <button className="start-btn" onClick={() => startReading(modalBook)}>
-                    <i className="fa-solid fa-play" /> Start Reading
-                  </button>
-                  <button
-                    className="fav-btn"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const k = `fav_${modalBook.id}`;
-                      const next = localStorage.getItem(k) !== "1";
-                      localStorage.setItem(k, next ? "1" : "0");
-                      alert(next ? "Added to favourites" : "Removed from favourites");
-                    }}
-                  >
-                    <i className="fa-solid fa-heart" />
-                  </button>
-                  <button className="download-btn" onClick={() => alert("Download placeholder")}>
-                    <i className="fa-solid fa-download" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div className="modal-reviews">
-              <h3>Reviews & Ratings</h3>
-              <div className="reviews-list">
-                {(modalBook.reviews || []).length === 0 ? (
-                  <p>No reviews yet — you can add one later.</p>
-                ) : (
-                  modalBook.reviews.map((r, i) => (
-                    <div key={i} className="review">
-                      <div className="review-header">
-                        <strong>{r.name}</strong>
-                        <span className="stars">
-                          {"★".repeat(r.stars) + "☆".repeat(5 - r.stars)}
-                        </span>
-                      </div>
-                      <p>{r.text}</p>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Modal Component */}
+      <Modal 
+        book={selectedBook} 
+        isOpen={isModalOpen} 
+        onClose={closeModal} 
+      />
     </div>
   );
-}
+};
+
+export default Home;

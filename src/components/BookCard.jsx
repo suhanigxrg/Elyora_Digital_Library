@@ -1,13 +1,6 @@
-// src/components/BookCard.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-/**
- * BookCard
- * Props:
- *  - book: book object from data
- *  - onOpenModal(book): optional callback to open modal in parent
- */
 export default function BookCard({ book, onOpenModal }) {
   const navigate = useNavigate();
   const [fav, setFav] = useState(() => {
@@ -35,7 +28,6 @@ export default function BookCard({ book, onOpenModal }) {
 
   function handleDownload(e) {
     e.stopPropagation();
-    // placeholder for download logic
     alert(`Download requested for "${book.title}". Implement download logic.`);
   }
 

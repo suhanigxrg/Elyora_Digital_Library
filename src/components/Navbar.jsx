@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"; // optional, remove if not using routing
+import "../css/style.css";
+
 
 export default function Navbar() {
   const navigate = useNavigate ? useNavigate() : null; // optional navigation
@@ -73,20 +75,19 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Search Bar */}
-        <form className="search-box" onSubmit={onSearchSubmit}>
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            type="text"
-            placeholder="Search books..."
-            className="search-input"
-            aria-label="Search books"
-          />
-          <button type="submit" className="search-icon" aria-label="Search">
-            🔍
-          </button>
-        </form>
+       {/* Search Bar */}
+<div className="search-box">
+  <input
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    type="text"
+    placeholder="Search books..."
+    className="search-input"
+  />
+  <span className="search-icon">🔍</span>
+</div>
+
+
       </div>
 
       {/* Right Section */}
