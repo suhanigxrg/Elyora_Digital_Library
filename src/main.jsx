@@ -3,10 +3,16 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AppLayout from "./App.jsx";
+
+// pages
 import Home from "./pages/Home.jsx";
 import Reader from "./pages/Reader.jsx";
+import Favourites from "./pages/Favourites.jsx";
+import Downloads from "./pages/Downloads.jsx";
+import Feedback from "./pages/Feedback.jsx";
+import Help from "./pages/Help.jsx";
 
-// Import CSS
+// CSS
 import "./css/style.css";
 import "./css/reader.css";
 
@@ -20,10 +26,10 @@ createRoot(root).render(
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Home />} />
           <Route path="reader/:bookId" element={<Reader />} />
-          <Route path="favourites" element={<div style={{padding: 20}}>Favourites Page (Coming Soon)</div>} />
-          <Route path="downloads" element={<div style={{padding: 20}}>Downloads Page (Coming Soon)</div>} />
-          <Route path="feedback" element={<div style={{padding: 20}}>Feedback Page (Coming Soon)</div>} />
-          <Route path="help" element={<div style={{padding: 20}}>Help Page (Coming Soon)</div>} />
+          <Route path="favourites" element={<Favourites />} />
+          <Route path="downloads" element={<Downloads />} />
+          <Route path="feedback" element={<Feedback />} />
+          <Route path="help" element={<Help />} />
         </Route>
       </Routes>
     </BrowserRouter>

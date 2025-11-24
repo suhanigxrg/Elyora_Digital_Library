@@ -3,7 +3,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
-  const [collapsed, setCollapsed] = useState(() => localStorage.getItem("sidebarExpanded") !== "true");
+  const [collapsed, setCollapsed] = useState(
+    () => localStorage.getItem("sidebarExpanded") !== "true"
+  );
   const [activePage, setActivePage] = useState("home");
   const navigate = useNavigate();
 
@@ -17,7 +19,7 @@ export default function Sidebar() {
 
   const handleMenuClick = (item) => {
     setActivePage(item.id);
-    if (item.path) navigate(item.path);
+    navigate(item.path);
   };
 
   return (
@@ -28,19 +30,24 @@ export default function Sidebar() {
             key={item.id}
             className={`menu-item ${activePage === item.id ? "active" : ""}`}
             onClick={() => handleMenuClick(item)}
-            data-page={item.id}
           >
-            <span className="icon"><i className={item.icon}></i></span>
+            <span className="icon">
+              <i className={item.icon}></i>
+            </span>
             <span className="text">{item.label}</span>
           </div>
         ))}
       </div>
 
-      <div className="toggle-btn" id="toggleBtn" onClick={() => {
-        const next = !collapsed;
-        setCollapsed(next);
-        localStorage.setItem('sidebarExpanded', next ? 'true' : 'false');
-      }}>
+      <div
+        className="toggle-btn"
+        id="toggleBtn"
+        onClick={() => {
+          const nextState = !collapsed;
+          setCollapsed(nextState);
+          localStorage.setItem("sidebarExpanded", nextState ? "true" : "false");
+        }}
+      >
         <span>{collapsed ? "→" : "←"}</span>
       </div>
     </div>
