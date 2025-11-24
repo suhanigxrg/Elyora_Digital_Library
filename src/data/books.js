@@ -8,6 +8,7 @@ const books = {
     totalChapters: 3,
     rating: 4.8,
     description: "A mysterious novel about lighthouses, lost books and ancient symbols.",
+    category: ["Motivational", "- Adventure", "- Spiritual"],
     chapters: {
       1: { title: "Chapter 1: The Beginning", subtitle: "The journey starts", content: [
         "In the beginning, there was only darkness and the whisper of ancient winds across forgotten lands...",
@@ -27,7 +28,20 @@ const books = {
         "Sarah opened the final page of the mysterious book.",
         "Her destiny awaited."
       ]}
-    }
+    },
+
+     reviews: [
+      {
+        name: "Aarav",
+        stars: 5,
+        text: "A beautifully written book. Life-changing!",
+      },
+      {
+        name: "Meera",
+        stars: 4,
+        text: "Great message, simple storytelling.",
+      },
+    ],
   },
 
   "business-tactics": {

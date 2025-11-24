@@ -1,64 +1,49 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// src/components/BookCard.jsx
+import React from "react";
 
 export default function BookCard({ book, onOpenModal }) {
-  const navigate = useNavigate();
-  const [fav, setFav] = useState(() => {
-    try {
-      return localStorage.getItem(`fav_${book.id}`) === "1";
-    } catch {
-      return false;
-    }
-  });
-
-  function toggleFav(e) {
-    e.stopPropagation();
-    const next = !fav;
-    setFav(next);
-    try {
-      localStorage.setItem(`fav_${book.id}`, next ? "1" : "0");
-    } catch {}
-  }
-
-  function handleView(e) {
-    e.stopPropagation();
-    if (onOpenModal) return onOpenModal(book);
-    navigate(`/reader/${book.id}`);
-  }
-
-  function handleDownload(e) {
-    e.stopPropagation();
-    alert(`Download requested for "${book.title}". Implement download logic.`);
-  }
+  if (!book) return null;
 
   return (
-    <div className="book-card" onClick={() => navigate(`/reader/${book.id}`)}>
+    <div className="book-card" onClick={() => onOpenModal && onOpenModal(book)}>
       <div className="book-visual">
         <img src={book.cover} alt={book.title} />
+
+        {/* Favorite Button */}
         <button
-          className={`fav-btn ${fav ? "active" : ""}`}
-          onClick={toggleFav}
-          aria-pressed={fav}
-          title="Toggle favorite"
+          className="fav-btn"
+          onClick={(e) => {
+            e.stopPropagation();
+            const key = `fav_${book.id}`;
+            const next = localStorage.getItem(key) !== "1";
+            localStorage.setItem(key, next ? "1" : "0");
+            e.currentTarget.classList.toggle("active", next);
+          }}
+          aria-label="toggle favourite"
         >
-          <i className={fav ? "fa-solid fa-heart" : "fa-regular fa-heart"} />
+          <i className="fa-regular fa-heart" />
         </button>
 
+        {/* Hover UI (View opens modal) */}
         <div className="hover-ui">
           <button
             className="view-btn"
-            onClick={handleView}
-            data-title={book.title}
-            data-author={book.author}
-            data-bookid={book.id}
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenModal && onOpenModal(book);
+            }}
+            aria-label="view book"
           >
             <i className="fa-solid fa-eye" /> View Book
           </button>
 
           <button
             className="icon-btn download-btn"
-            onClick={handleDownload}
-            title="Download"
+            onClick={(e) => {
+              e.stopPropagation();
+              alert("Download clicked — implement your logic.");
+            }}
+            aria-label="download"
           >
             <i className="fa-solid fa-download" />
           </button>
@@ -67,7 +52,8 @@ export default function BookCard({ book, onOpenModal }) {
 
       <h3>{book.title}</h3>
       <p>{book.author}</p>
-      <span className="tag">{book.category || book.genre}</span>
+
+      {book.category && <span className="tag">{book.category}</span>}
       <span className="rating">⭐ {book.rating ?? "—"}</span>
     </div>
   );
