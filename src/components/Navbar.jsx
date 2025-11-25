@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom"; // optional, remove if not using routing
-import "../css/style.css";
 
 
 export default function Navbar() {

@@ -1,17 +1,8 @@
-// src/pages/Reader.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import books from "../data/books";
 
-/**
- * Reader page implements:
- *  - load book by :bookId param
- *  - font size controls, theme toggle
- *  - chapter navigation and progress saving to localStorage
- *  - search in book (simple highlight)
- *  - highlight selected text (save highlights to localStorage)
- *  - notes modal (save to localStorage)
- */
+
 export default function Reader() {
   const { bookId } = useParams();
   const navigate = useNavigate();

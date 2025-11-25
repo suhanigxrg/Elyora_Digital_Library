@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import Modal from "../components/Modal";
 import books from "../data/books";
-import "../css/style.css";
+
 
 export default function Home() {
   const [selectedBook, setSelectedBook] = useState(null);

@@ -5,9 +5,6 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 
-// Make sure these files actually exist in src/css/
-import "./css/style.css";
-import "./css/reader.css";
 
 export default function AppLayout() {
   return (

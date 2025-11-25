@@ -1,6 +1,6 @@
 // src/components/Modal.jsx
 import React, { useEffect } from "react";
-import "../css/style.css";
+
 
 const Modal = ({ book, isOpen, onClose, onStartReading }) => {
   useEffect(() => {
