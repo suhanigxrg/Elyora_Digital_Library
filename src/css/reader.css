@@ -217,6 +217,7 @@ body.dark-theme .search-icon {
     padding: 1rem 0;
     gap: 1rem;
     transition: all 0.3s ease;
+    margin-top: -80px;
 }
 
 body.dark-theme .left-sidebar {
@@ -264,6 +265,7 @@ body.dark-theme .sidebar-btn:hover {
     align-items: center;
     width: 100%;
     margin: 0 auto;
+    margin-top: -80px;
     background-color: #fedbee;
 }
 body.dark-theme .content-area{
@@ -437,6 +439,7 @@ body.dark-theme .progress-info {
     padding: 2rem;
     overflow-y: auto;
     transition: all 0.3s ease;
+    margin-top: -80px;
 }
 
 body.dark-theme .right-sidebar {

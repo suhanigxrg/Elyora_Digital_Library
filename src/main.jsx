@@ -13,8 +13,9 @@ import Feedback from "./pages/Feedback.jsx";
 import Help from "./pages/Help.jsx";
 
 // CSS
-import "./css/style.css";
 import "./css/reader.css";
+import "./css/style.css";
+
 
 const root = document.getElementById("root");
 if (!root) throw new Error("Root element not found");
